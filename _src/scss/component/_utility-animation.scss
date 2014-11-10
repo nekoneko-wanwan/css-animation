@@ -1,0 +1,87 @@
+@charset "utf-8";
+/* ******************************************
+utility-animation.scss
+プロジェクトに関係なく、汎用的に使用できるcss3アニメーションを管理します
+****************************************** */
+
+
+/* -------------------------------------------
+ボタン
+------------------------------------------- */
+//_utility-single.scssや_abstract.scssに入れるか迷いどこだが、とりあえずこちらに入れた
+/*
+ * 沈むボタン
+ */
+@mixin anim-downBtn($f_color: #fff, $bg_color: #20b2aa, $padding: 10px, $width: 200px) {
+	//box-shadowもアクションの一つとして必要なのでボタンの形状自体もここで指定
+	background-color: $bg_color;
+	border-radius: 6px;
+	border: none;
+	color: $f_color;
+	box-shadow: 0 6px 0 darken($bg_color, 10%), 0 12px 0 rgba(0,0,0,0.1);
+	cursor: pointer;
+	display: inline-block;
+	margin: 10px 20px 20px;
+	padding: $padding ($padding * 2);
+	text-align: center;
+	text-decoration: none;
+	width: $width;
+	@include transition(color 0.3s, background-color 0.3s, box-shadow 0.3s, -webkit-transform 0.3s);
+
+	//hover
+	&:hover {
+		background-color: lighten($bg_color, 5%);
+		box-shadow: 0 3px 0 darken($bg_color, 12%), 0 6px 0px rgba(0,0,0,0.1);
+		@include translateY(3px);
+	}
+
+	//active
+	&:active {
+		color: darken($f_color, 20%);
+		background-color: darken($bg_color, 5%);
+		box-shadow: 0 0 0 darken($bg_color, 10%), 0 0 0 rgba(0,0,0,0.1);
+		@include translateY(6px);
+		@include transition-duration(0.1s);
+	}
+}
+
+//使い方
+.u-anim-downBtn {
+	@include anim-downBtn(#fff, #0066b5);
+}
+
+
+
+
+/* -------------------------------------------
+flash
+※beforeを使用しているため、img,inputなどには効かないので注意
+------------------------------------------- */
+@mixin anim-flash() {
+	position: relative;
+	&:hover {
+		&:before {
+			content: '';
+			display: block;
+			left: 0;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			@include animation(flash .5s);
+		}
+	}
+}
+@include keyframes(flash) {
+	0% { background-color:   rgba(255,255,255, 0.4); }
+	10% { background-color:  rgba(255,255,255, 0.3); }
+	100% { background-color: rgba(255,255,255, 0); }
+}
+
+//使い方
+.u-anim-flash {
+	@include anim-flash();
+}
+
+
+
