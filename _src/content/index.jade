@@ -13,6 +13,17 @@ html(lang = "ja")
 
 		block script
 			script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+			script.
+				$(function(){
+					setTimeout(function(){
+						$('.u-anim-card').addClass('active');
+					}, 1000);
+					setTimeout(function(){
+						$('.u-anim-card').removeClass('active');
+					}, 2000);
+
+				});
+
 
 	body
 		.l-contents
@@ -30,4 +41,12 @@ html(lang = "ja")
 
 					p.u-anim-flash(style='widht:300px;height: 300px;background: #006655;color: #fff;') 光るブロック
 
+				h1.m-headType1 裏返し
+				.m-block
+					ul
+						li.u-anim-card
+							img.u-anim-card__front(src="http://placehold.it/200x180/006655/ffffff&text=img")
+							dl.u-anim-card__back
+								dt タイトル
+								dd テキスト
 
